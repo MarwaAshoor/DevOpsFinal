@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    image: my-app
+    build: .
+    volumes:
+      - ./Main_menu.aspx:/app/Main_menu.aspx
+      - ./Main_menu.aspx.vb:/app/Main_menu.aspx.vb
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
