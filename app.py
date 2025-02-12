@@ -24,4 +24,4 @@ def upload_image():
         return f"Image uploaded: <img src='/static/{file.filename}' alt='Uploaded Image'>"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
