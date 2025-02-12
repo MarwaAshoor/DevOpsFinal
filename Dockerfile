@@ -1,13 +1,18 @@
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 
-# Set the working directory
+# Use Python Base Image
+FROM python:3.9
+
+# Set working directory
 WORKDIR /app
 
-# Copy the published app from the build stage
-COPY . .
+# Copy files
+COPY . /app
 
-# Expose port 80 for HTTP traffic
-EXPOSE 80
+# Install Flask
+RUN pip install flask
 
-# Define the entry point for the container
-ENTRYPOINT ["dotnet", "Main_menu.Main_menu.dll"]
+# Expose port
+EXPOSE 5000
+
+# Run the application
+CMD ["python", "app.py"]
