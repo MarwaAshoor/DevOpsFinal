@@ -10,10 +10,10 @@
     <input type="text" id="txtTime" readonly>
     <button onclick="fetchTime()">Fetch Now</button>
 
-    <h1>Image</h1>
+    <!-- <h1>Image</h1>
     <input type="file" id="txtFile">
     <button onclick="uploadImage()">Upload</button>
-    <div id="imageContainer"></div>
+    <div id="imageContainer"></div> -->
 
     <script>
         function fetchTime() {
@@ -24,20 +24,20 @@
                 });
         }
     
-        function uploadImage() {
-            const fileInput = document.getElementById('txtFile');
-            const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
+        // function uploadImage() {
+        //     const fileInput = document.getElementById('txtFile');
+        //     const formData = new FormData();
+        //     formData.append('file', fileInput.files[0]);
     
-            fetch('/upload_image', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('imageContainer').innerHTML = data;
-            });
-        }
+        //     fetch('/upload_image', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //     .then(response => response.text())
+        //     .then(data => {
+        //         document.getElementById('imageContainer').innerHTML = data;
+        //     });
+        // }
     </script>
 </body>
 </html>
