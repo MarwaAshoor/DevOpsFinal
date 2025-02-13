@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Get Your Age from your birthday</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
     <script>
-        function fetchAge() {
-            fetch('/get-age')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("Age-display").innerText = "Your age is: " + data.age;
-                })
-                .catch(error => console.error('Error:', error));
+        function calculateAge() {
+            var birthYear = document.getElementById("birth_year").value;
+            var currentYear = new Date().getFullYear();
+            var age = currentYear - birthYear;
+            document.getElementById("age_display").innerText = "Your age is: " + age + " years old.";
         }
     </script>
 </head>
 <body>
-    <h2>Enter your birth year then clear on the button to get your age:</h2>
-    <input type="text" id="txtYear"/>
-    <button onclick="fetchTime()">Get Time</button>
-    <h3 id="Age-display"></h3>
+    <h1>Enter Your Birth Year</h1>
+    <form method="POST" onsubmit="event.preventDefault(); calculateAge();">
+        <label for="birth_year">Birth Year:</label>
+        <input type="text" id="birth_year" name="birth_year" required>
+        <button type="submit">Calculate Age</button>
+    </form>
+
+    <h2 id="age_display"></h2>
+
+    {% if age is not none %}
+    <h2>Your age is: {{ age }} years old.</h2>
+    {% endif %}
 </body>
 </html>
