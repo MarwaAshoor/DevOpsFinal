@@ -1,19 +1,16 @@
-from flask import Flask, render_template, request
-from datetime import datetime
+from flask import Flask, render_template, jsonify
+import datetime
 
 app = Flask(__name__)
 
-# Route to display the form and calculate age
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/")
 def home():
-    age = None
-    if request.method == 'POST':
-        birthday_str = request.form['birthday']
-        birthday = datetime.strptime(birthday_str, "%Y-%m-%d")
-        today = datetime.today()
-        age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
-    
-    return render_template('index.html', age=age)
+    return render_template("index.html")
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000,debug=True)
+@app.route("/get-age", methods=["GET"])
+def get_time():
+    current_age = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return jsonify({"time": current_time})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
