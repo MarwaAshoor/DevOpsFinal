@@ -3,25 +3,17 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/fetch_time', methods=['POST'])
-def fetch_time():
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return current_time
-
-@app.route('/upload_image', methods=['POST'])
-def upload_image():
-    if 'file' not in request.files:
-        return 'No file part'
-    file = request.files['file']
-    if file.filename == '':
-        return 'No selected file'
-    if file:
-        file.save(f"static/{file.filename}")
-        return f"Image uploaded: <img src='/static/{file.filename}' alt='Uploaded Image'>"
+# Route to display the form and calculate age
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    age = None
+    if request.method == 'POST':
+        birthday_str = request.form['birthday']
+        birthday = datetime.strptime(birthday_str, "%Y-%m-%d")
+        today = datetime.today()
+        age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+    
+    return render_template('index.html', age=age)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000,debug=True)

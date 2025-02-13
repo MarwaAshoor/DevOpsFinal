@@ -3,41 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask App</title>
+    <title>Age Calculator</title>
 </head>
 <body>
-    <h1>Time</h1>
-    <input type="text" id="txtTime" readonly>
-    <button onclick="fetchTime()">Fetch Now</button>
+    <h1>Enter Your Birthday</h1>
+    <form method="POST">
+        <label for="birthday">Birthday:</label>
+        <input type="date" name="birthday" required>
+        <button type="submit">Submit</button>
+    </form>
 
-    <h1>Image</h1>
-    <input type="file" id="txtFile">
-    <button onclick="uploadImage()">Upload</button>
-    <div id="imageContainer"></div>
-
-    <script>
-        function fetchTime() {
-            fetch('/fetch_time', { method: 'POST' })
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('txtTime').value = data;
-                });
-        }
-    
-        function uploadImage() {
-            const fileInput = document.getElementById('txtFile');
-            const formData = new FormData();
-            formData.append('file', fileInput.files[0]);
-    
-            fetch('/upload_image', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('imageContainer').innerHTML = data;
-            });
-        }
-    </script>
+    {% if age is not none %}
+    <h2>Your age is: {{ age }} years old.</h2>
+    {% endif %}
 </body>
 </html>
